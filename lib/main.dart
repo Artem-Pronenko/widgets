@@ -1,30 +1,6 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-// почему MaterialApp flutter_platform_widgets Platform.is<IOS, Android, Windows, ....>
-// MaterialApp
-/*
-home
-initialRoute
-debugShowCheckedModeBanner
-theme
-locale
-supportedLocales
-localizationsDelegates
-localeResolutionCallback
-navigatorKey
-builder
-routes
-onGenerateRoute
- */
-// Scaffold
-// SafeArea
-// Text
-
-// #2
-// Text
-// RichText Text.rich TextSpan
-// SelectableText
+import 'my_slider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -50,92 +26,36 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class RedBox extends StatelessWidget {
-  const RedBox({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 78,
-      height: 78,
-      color: Colors.red,
-    );
-  }
-}
-
-class GreenBox extends StatelessWidget {
-  const GreenBox({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 78,
-      height: 78,
-      color: Colors.green,
-    );
-  }
-}
-
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: BackButton(),
+      ),
+      backgroundColor: Color(0xFFF2F7FA),
       body: SafeArea(
-        child: Stack(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Center(
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 15),
               child: Text(
-                'Row ------------------------------------>',
-                style: TextStyle(fontSize: 22),
+                'What they write about us',
+                style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
               ),
             ),
-            const Center(
-              child: RotatedBox(
-                quarterTurns: 1,
-                child: Text(
-                  'Column ------------------------------------>',
-                  style: TextStyle(fontSize: 22),
-                ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: MySlider(),
               ),
             ),
-            GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 5,
-              ),
-              itemBuilder: (BuildContext context, int index) {
-                return Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black, width: 0.5),
-                  ),
-                );
-              },
-            ),
-            const ColRowExample(),
           ],
         ),
       ),
-    );
-  }
-}
-
-class ColRowExample extends StatelessWidget {
-  const ColRowExample({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      // textDirection: TextDirection.ltr,
-      verticalDirection: VerticalDirection.up,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        RedBox(),
-        GreenBox(),
-      ],
     );
   }
 }
