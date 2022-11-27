@@ -37,24 +37,7 @@ class App extends StatelessWidget {
       ),
       backgroundColor: Color(0xFFF2F7FA),
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 15),
-              child: Text(
-                'What they write about us',
-                style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-              ),
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: MySlider(),
-              ),
-            ),
-          ],
-        ),
+        child: MySlider()
       ),
     );
   }

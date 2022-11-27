@@ -42,38 +42,67 @@ class _MySliderState extends State<MySlider> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            SliderButton(
-              onPressed: _prevPage,
-              icon: Icons.arrow_back,
+    return NestedScrollView(
+      headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+        return [
+          SliverAppBar(
+            flexibleSpace: FlexibleSpaceBar(
+              title: Container(width: 50, height: 50, color: Colors.red,),
+
             ),
-            ...List.generate(
-              userList.length,
-              (index) => SliderDot(isActive: index == page),
+            backgroundColor: Color(0xFFF2F7FA),
+            pinned: true,
+            elevation: 0,
+            // collapsedHeight: 150,
+            expandedHeight: 300,
+            // floating: true,
+            // snap: true,
+            // title: Text(
+            //   'What they write about us',
+            //   style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+            // ),
+            // leading: Text('asdas', style: TextStyle(fontSize: 44),),
+            // actions: [
+            //   ElevatedButton(onPressed: () {}, child: Text('das')),
+            //   ElevatedButton(onPressed: () {}, child: Text('das')),
+            //   ElevatedButton(onPressed: () {}, child: Text('das')),
+            // ],
+            bottom: PreferredSize(
+              preferredSize: Size.fromHeight(50),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SliderButton(
+                    onPressed: _prevPage,
+                    icon: Icons.arrow_back,
+                  ),
+                  ...List.generate(
+                    userList.length,
+                    (index) => SliderDot(isActive: index == page),
+                  ),
+                  SliderButton(
+                    onPressed: _nextPage,
+                    icon: Icons.arrow_forward,
+                  ),
+                ],
+              ),
             ),
-            SliderButton(
-              onPressed: _nextPage,
-              icon: Icons.arrow_forward,
-            ),
-          ],
-        ),
-        Expanded(
-          child: PageView(
-            controller: _pageController,
-            pageSnapping: false,
-            onPageChanged: (int currentPage) {
-              setState(() {
-                page = currentPage;
-              });
-            },
-            children: userList.map((user) => UserCard(user: user)).toList(),
           ),
-        ),
-      ],
+        ];
+      },
+      body: PageView(
+        controller: _pageController,
+        pageSnapping: false,
+        onPageChanged: (int currentPage) {
+          setState(() {
+            page = currentPage;
+          });
+        },
+        children: userList
+            .map((user) =>
+                SingleChildScrollView(child: UserCard(user: user)))
+            .toList(),
+      ),
     );
   }
 }
